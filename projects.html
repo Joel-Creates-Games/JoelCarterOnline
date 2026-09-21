@@ -51,115 +51,133 @@
             </div>
         </header>
         <!-- Page Content-->
+       <style>
+            .project-card {
+                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                cursor: pointer;
+            }
+            .project-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+            }
+        </style>
+
         <section class="pt-4">
             <div class="container px-lg-5">
-                <!-- Page Features-->
                 <div class="row gx-lg-5 justify-content-center">
+                    
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                
-                                <h6 class="text-primary text-uppercase mb-3">Play Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/PixelGrower.png" alt="Pixel Grower" style="width: 100px; height: 100px; object-fit: contain;" />
                                 </div>
-
                                 <h2 class="fs-4 fw-bold">Pixel Grower</h2>
-                                <p class="mb-0">A Unity-based relaxation game where a player plants seeds to grow an image they uploaded.</p>
+                                <p class="mb-4 flex-grow-1">A Unity-based relaxation game where a player plants seeds to grow an image they uploaded.</p>
+                                <span class="btn btn-primary fw-bold w-100">Play Me!</span>
                                 <a href="projects/PixelGrower.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Play Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/SirRad.png" alt="Sir Rad" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Sir Rad</h2>
-                                <p class="mb-0">A C++ game using visual studio add-ons to develop my own game engine. I'd love to make a sequel.</p>
+                                <p class="mb-4 flex-grow-1">A C++ game using visual studio add-ons to develop my own game engine. I'd love to make a sequel.</p>
+                                <span class="btn btn-primary fw-bold w-100">Play Me!</span>
                                 <a href="projects/SirRad.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Play Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/GobbleGoblin.PNG" alt="Gobble Goblin" style="width: 100px; height: 100px; object-fit: contain;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Gobble Goblin</h2>
-                                <p class="mb-0">A fruit connection puzzle game where the player must switch to first person to defend from rival goblins.</p>
+                                <p class="mb-4 flex-grow-1">A fruit connection puzzle game where the player must switch to first person to defend from rival goblins.</p>
+                                <span class="btn btn-primary fw-bold w-100">Play Me!</span>
                                 <a href="projects/GobbleGoblin.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Play Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/PowerInTime.PNG" alt="Joel Github" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Power In Time</h2>
-                                <p class="mb-0">I plan to make this a game, but for now this is an example of 2D animation and character controller creation, I created the characters in 3D and then developed spritesheets for them, I used the 2D unity template for the starting world.</p>
+                                <p class="mb-4 flex-grow-1">I plan to make this a game, but for now this is an example of 2D animation and character controller creation, I created the characters in 3D and then developed spritesheets for them, I used the 2D unity template for the starting world.</p>
+                                <span class="btn btn-primary fw-bold w-100">Play Me!</span>
                                 <a href="projects/PowerInTime.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Watch Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/Unreal.JPG" alt="Unreal Development" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Unreal Graphics Showcase</h2>
-                                <p class="mb-0">A short Unreal experience made at university.</p>
+                                <p class="mb-4 flex-grow-1">A short Unreal experience made at university.</p>
+                                <span class="btn btn-primary fw-bold w-100">Watch Me!</span>
                                 <a href="projects/Unreal.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Watch Me!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/ProceduralUnreal.JPG" alt="Unreal Development" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Procedural Content Generation</h2>
-                                <p class="mb-0">A PCG Mushroom cave made using Houdini to Unreal Engine Pipeline.</p>
+                                <p class="mb-4 flex-grow-1">A PCG Mushroom cave made using Houdini to Unreal Engine Pipeline.</p>
+                                <span class="btn btn-primary fw-bold w-100">Watch Me!</span>
                                 <a href="projects/PCGUnreal.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Go To Steam!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/BlueForest.png" alt="The Secret Blue Forest" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">The Secret Blue Forest</h2>
-                                <p class="mb-0">A complete solo project built entirely in Unity, born out of the unique isolation of the Covid era. I used the development of this game to independently teach myself gameplay programming and Blender, successfully scaling a learning project into my proudest shipped title.</p>
+                                <p class="mb-4 flex-grow-1">A complete solo project built entirely in Unity, born out of the unique isolation of the Covid era. I used the development of this game to independently teach myself gameplay programming and Blender, successfully scaling a learning project into my proudest shipped title.</p>
+                                <span class="btn btn-primary fw-bold w-100">Go To Steam!</span>
                                 <a href="projects/theSecretBlueForest.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-3">
-                                <h6 class="text-primary text-uppercase mb-3">Go To Steam!</h6>
-                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2">
+                        <div class="card bg-light border-0 h-100 shadow-sm project-card">
+                            <div class="card-body text-center p-4 p-lg-5 pt-4 d-flex flex-column">
+                                <div class="d-inline-flex bg-primary bg-gradient text-white rounded-3 mb-4 p-2 mx-auto">
                                     <img src="assets/Tentacle.PNG" alt="Under Iron Water" style="width: 100px; height: 100px;" />
                                 </div>
                                 <h2 class="fs-4 fw-bold">Under Iron Water</h2>
-                                <p>My second released Steam game, developed in Unity prior to my university studies. I used this project as a self directed deep dive to further learn C# programming and 3D modeling in Blender, establishing the foundational skills I continue to build upon today.</p>                                <a href="projects/UnderIronWater.html" class="stretched-link"></a>
+                                <p class="mb-4 flex-grow-1">My second released Steam game, developed in Unity prior to my university studies. I used this project as a self directed deep dive to further learn C# programming and 3D modeling in Blender, establishing the foundational skills I continue to build upon today.</p>
+                                <span class="btn btn-primary fw-bold w-100">Go To Steam!</span>
+                                <a href="projects/UnderIronWater.html" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
