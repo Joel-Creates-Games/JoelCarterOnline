@@ -113,12 +113,12 @@
                                             spatialGrid[i].clear();
                                         }
 
-                                        for (size_t i = 0; i < parent->allcharacters.size(); i++) {
-                                            Character* c = parent->allcharacters[i];
+                                        for (size_t i = 0; i < engine->allcharacters.size(); i++) {
+                                            Character* c = engine->allcharacters[i];
                                             if (!c->GetSpawned()) continue;
 
                                             CalculateHitZone(c);
-
+                                            ///flattening a 2d grid to a 1d array index for cache locality
                                             int bucketIndex = c->collisionZone[0] + (c->collisionZone[1] * hitZoneDepth);
 
                                             spatialGrid[bucketIndex].push_back(c);
@@ -141,11 +141,10 @@
                                             Character* other = localZone[i];
 
                                             if (other == thisChar) continue;
-
-                                            int listLX = other->GetPosX() - other->GetSizeW() / 2;
-                                            int listRX = other->GetPosX() + other->GetSizeW() / 2;
-                                            int listTY = other->GetPosY() - other->GetSizeH() / 2;
-                                            int listBY = other->GetPosY() + other->GetSizeH() / 2;
+                                            int listLX = other->GetPosX();
+                                            int listRX = other->GetPosX() + other->GetSizeW();
+                                            int listTY = other->GetPosY();
+                                            int listBY = other->GetPosY() + other->GetSizeH();
 
                                             if (thisRX > listLX && thisLX < listRX && thisTY < listBY && thisBY > listTY)
                                             {
