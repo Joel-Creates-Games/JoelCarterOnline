@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="title" content="Joel Carter | Engine & Gameplay Programmer">
+        <meta name="description" content="Technical games programming portfolio featuring custom C++ engine architecture, Unreal Engine 5 PCG pipelines, and shipped Steam titles.">
+
+        <!-- Open Graph / LinkedIn / Discord (Subtle Version) -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://joelcarter.online/">
+        <meta property="og:title" content="Joel Carter | Engine & Gameplay Programmer">
+        <meta property="og:description" content="Technical games programming portfolio featuring custom C++ engine architecture, Unreal Engine 5 PCG pipelines, and shipped Steam titles.">
+        <meta property="og:image" content="https://joelcarter.online/assets/PowerInTime.PNG">
+
+        <!-- Force Small Thumbnail -->
+        <meta name="twitter:card" content="summary">
+        <title>Projects</title>
+        <link rel="icon" type="image/x-icon" href="assets/PowerInTime.PNG" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="../css/styles.css" rel="stylesheet" />
+        <script defer src="https://stats.joelcarter.online/script.js" data-website-id="1bd96226-c548-45fa-8379-1d73367f45cd" data-host-url="https://stats.joelcarter.online"></script>
+    </head>
+    <body>
+        <!-- Responsive navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-lg-5">
+                <a class="navbar-brand" href="../projects.html">Joel Carter</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../aboutme.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="../projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../contactdetails.html">Contact Details</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- About Me Header -->
+        <header class="py-5 bg-light">
+            <div class="container px-lg-5 text-center">
+                <h1 class="display-5 fw-bold">3D Vampire Survivor Clone</h1>
+                <p class="fs-4">Low-Level Architecture: Data-Oriented Design (SoA)</p>
+            </div>
+        </header>
+
+        <!-- About Me Text Box -->
+        <section class="py-4">
+            <div class="container px-lg-5">
+                
+                <!-- The Sir Rad Card now sits safely inside the container -->
+                <div class="card border-0 shadow-sm mb-5 text-start">
+                    <div class="card-body p-4 p-lg-5">
+
+                        <!-- Overview -->
+                        <h3 class="fs-5 fw-bold mb-3">About the Project</h3>
+                        <p class="text-muted mb-4">
+                            A deep dive into Data-Oriented Design and Structure of Arrays to develop a custom Entity Component System using C++ in Unreal Engine, to render a 10000 entity swarm without separate actors maintaining 80fps.
+                        </p>
+                        <h4 class="fs-6 fw-bold text-uppercase text-primary mb-3 mt-4">Engine Architecture Highlights</h4>
+                        <ul class="text-muted small mb-4">
+                            <li><strong>Data-Oriented Design (SoA):</strong> Bypassed standard Unreal `AActor` overhead by developing a custom Swarm Manager. Entities exist as math within flat C++ arrays (Struct of Arrays), maximizing CPU L1 Cache Locality and enabling SIMD auto-vectorization for hot-loop movement.</li>
+                            <li><strong>Batch Instanced Rendering:</strong> Decoupled the physics math from the graphics pipeline. The CPU crunches the array math and pushes the transform cache to an Instanced Static Mesh component, rendering 10,000+ entities in a single GPU draw call.</li>
+                            <li><strong>Event-Driven Subsystem Architecture:</strong> Removed UI `Tick` overhead by developing a custom C++ `UWorldSubsystem`. Health and EXP bars update via multicast delegates when certain events broadcast a hit or level-up payload.</li>
+                            <li><strong>O(1) Contiguous Array Deletion:</strong> Prevented O(N) memory-shifting frame drops by implementing a "Swap and Pop" deletion algorithm. Dead entities are instantly overwritten by the last active element, maintaining a perfectly dense array for branchless iteration.</li>
+                        </ul>
+
+                        <!-- Tech Stack & Links Grid -->
+                        <div class="row g-4 pt-3 border-top mb-4">
+                            <div class="col-md-6">
+                                <h4 class="fs-6 fw-bold text-uppercase text-primary mb-3">Tech Stack</h4>
+                                <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small text-muted">
+                                    <li><strong>Language:</strong> C++ & Blueprints</li>
+                                    <li><strong>Engine:</strong> Unreal Engine 5.8</li>
+                                    <li><strong>Deployment:</strong> Windows (PC)</li>
+                                    <li><strong>Features:</strong> Data-Oriented Swarm Architecture, Batched ISM Rendering & Event-Driven UI</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="https://github.com/Joel-Creates-Games/VampireClone" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm">
+                                    View C++ Source Code ↗
+                                </a>
+                                <a href="https://youtu.be/RjdCRl6qkFM" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm">
+                                    Watch on YouTube ↗
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Embedded Video -->
+                        <div class="mb-4">
+                            <video autoplay loop muted playsinline controls class="w-100 rounded shadow-sm border">
+                                <source src="../assets/DOD Unreal.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <figure class="figure w-100">
+                                <div class="bg-dark text-light p-3 rounded shadow-sm text-start">
+                                    <pre class="m-0"><code class="language-cpp">
+                                    private:
+                                        class UProgressionMessageSubsystem* ProgressRadio = nullptr;
+                                        class UCombatMessageSubsystem* CombatRadio = nullptr;
+
+                                        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+                                        UInstancedStaticMeshComponent* ISMComponent;
+
+                                        TArray<uint8> _cleanupFlags;
+
+                                        TArray<FTransform> _InstanceTransforms;
+                                        TArray<FVector> _EnemyDirection;
+                                        TArray<FVector> _EnemyPosition;
+                                        TArray<FVector> _EnemyVelocity;
+                                        TArray<FVector> _EnemyScale;
+                                        TArray<float> _speed;
+                                        TArray<float> _damage;
+                                        TArray<float> _health;
+
+                                        int _aliveEnemiesCount = 0;
+                                        int _enemyCount = 10000;
+                                    </code></pre>
+                                </div>
+                                <figcaption class="figure-caption text-center mt-2">
+                                    <strong>SwarmManager.h Stuct of Array Implementation and UWorldSubsystem definition:</strong> Bypassed standard Object-Oriented <code>AActor</code> overhead through a Struct of Arrays (SoA) memory layout. Storing entity transforms, velocity, and combat stats in flat, contiguous <code>TArray</code> blocks using CPU L1 Cache Locality and enables branchless SIMD auto-vectorization. Active entities are maintained via an array (tracking <code>_aliveEnemiesCount</code> for O(1) Swap-and-Pop deletion), pushing batched transform updates to a single ISM component while safely routing decoupled game events through custom C++ World Subsystems.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <figure class="figure w-100">
+                                <div class="bg-dark text-light p-3 rounded shadow-sm text-start">
+                                    <pre class="m-0"><code class="language-cpp">
+                                    void GameEngine::Step()
+                                    {
+                                        static Uint32 lastTime = SDL_GetTicks();
+                                        static float timeAccumulator = 0.0f;
+                                        const float TIME_STEP = 16.667f; // Fixed 60Hz update step
+
+                                        Uint32 currentTime = SDL_GetTicks();
+                                        float frameTime = (float)(currentTime - lastTime);
+                                        lastTime = currentTime;
+
+                                        // Spiral of Death preventer (Capped at 100ms)
+                                        if (frameTime > 100.0f) {
+                                            frameTime = 100.0f;
+                                        }
+
+                                        timeAccumulator += frameTime;
+                                        Input();
+
+                                        // Fixed timestep physics loop
+                                        while (timeAccumulator >= TIME_STEP) {
+                                            Update();
+                                            totalTime += TIME_STEP;
+                                            timeAccumulator -= TIME_STEP;
+                                        }
+
+                                        Render();
+
+                                    #ifndef __EMSCRIPTEN__
+                                        // Native Desktop frame-limiting delay
+                                        if (TIME_STEP - aTimer.getTicks() >= 0) {
+                                            SDL_Delay(TIME_STEP - aTimer.getTicks());
+                                        }
+                                        aTimer.resetTicksTimer();
+                                    #endif
+                                    }
+                                    
+                                    //inside the main.cpp (SirRad.cpp)
+                                    #ifdef __EMSCRIPTEN__
+                                    #include <emscripten.h>
+
+                                    GameEngine* globalGame = nullptr;
+
+                                    void MainLoop()
+                                    {
+                                        if (globalGame) {
+                                            globalGame->Step();
+                                        }
+                                    }
+                                    #endif
+
+                                    //inside the main to start the emscripten loop or basic loop, I have a splash screen
+                                    #ifdef __EMSCRIPTEN__
+                                        globalGame = new GameEngine(window);
+                                        emscripten_set_main_loop(MainLoop, 60, 1);
+                                    #else
+                                        GameEngine theGame(window);
+                                        ///game of life splash screen not included in emscripten version
+                                        theGame.Splash();
+                                        theGame.GameLoop();
+                                        SDL_Quit();
+                                    #endif
+                                    </code></pre>
+                                </div>
+                                <figcaption class="figure-caption text-center mt-2">
+                                    <strong>Cross-Platform Deterministic Game Loop:</strong> Developed a fixed-timestep accumulator (16.667ms) to decouple rendering from the core physics simulation, ensuring stable, deterministic behavior across varying hardware. Implemented C++ preprocessor directives to handle diverging core-loop logic between Native Desktop execution and Emscripten (WebAssembly) cross-compilation.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section class="game-section py-5 text-center bg-dark text-white">
+            <h2 class="mb-4">Play the Game</h2>
+            <div class="game-wrapper mx-auto">
+                <iframe 
+                    src="glbuilds/sirRadGl/index.html" 
+                    title="C++ Custom Game Engine"
+                    allow="fullscreen; gamepad; autoplay" 
+                    allowfullscreen
+                    scrolling="no"
+                    loading="lazy">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Horizontal Cards Section -->
+        <section class="py-5">
+            
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container text-center">
+                <!-- Contact Links -->
+                <div class="mb-3">
+                    <a href="mailto:itsjoelcarter@gmail.com" class="text-decoration-none text-white mx-3 fw-bold">Email</a>
+                    <a href="https://www.linkedin.com/in/joel-creates-games/" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white mx-3 fw-bold">LinkedIn</a>
+                    <a href="https://github.com/Joel-Creates-Games" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white mx-3 fw-bold">GitHub</a>
+                </div>
+                
+                <!-- Copyright -->
+                <p class="m-0 text-white">&copy; 2025 - 2026 Joel Carter. All rights reserved</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
