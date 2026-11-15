@@ -89,38 +89,30 @@
                             </div>
                         </div>
 
-                        <!-- Embedded Video -->
-                        <div class="mb-4">
-                            <video autoplay loop muted playsinline controls class="w-100 rounded shadow-sm border">
-                                <source src="../assets/DOD Unreal.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-
                         <div class="col-12 mb-4">
                             <figure class="figure w-100">
                                 <div class="bg-dark text-light p-3 rounded shadow-sm text-start">
                                     <pre class="m-0"><code class="language-cpp">
-                                    private:
-                                        class UProgressionMessageSubsystem* ProgressRadio = nullptr;
-                                        class UCombatMessageSubsystem* CombatRadio = nullptr;
+                                        private:
+                                            class UProgressionMessageSubsystem* ProgressRadio = nullptr;
+                                            class UCombatMessageSubsystem* CombatRadio = nullptr;
 
-                                        UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-                                        UInstancedStaticMeshComponent* ISMComponent;
+                                            UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+                                            UInstancedStaticMeshComponent* ISMComponent;
 
-                                        TArray<uint8> _cleanupFlags;
+                                            TArray<uint8> _cleanupFlags;
 
-                                        TArray<FTransform> _InstanceTransforms;
-                                        TArray<FVector> _EnemyDirection;
-                                        TArray<FVector> _EnemyPosition;
-                                        TArray<FVector> _EnemyVelocity;
-                                        TArray<FVector> _EnemyScale;
-                                        TArray<float> _speed;
-                                        TArray<float> _damage;
-                                        TArray<float> _health;
+                                            TArray<FTransform> _InstanceTransforms;
+                                            TArray<FVector> _EnemyDirection;
+                                            TArray<FVector> _EnemyPosition;
+                                            TArray<FVector> _EnemyVelocity;
+                                            TArray<FVector> _EnemyScale;
+                                            TArray<float> _speed;
+                                            TArray<float> _damage;
+                                            TArray<float> _health;
 
-                                        int _aliveEnemiesCount = 0;
-                                        int _enemyCount = 10000;
+                                            int _aliveEnemiesCount = 0;
+                                            int _enemyCount = 10000;
                                     </code></pre>
                                 </div>
                                 <figcaption class="figure-caption text-center mt-2">
@@ -133,92 +125,112 @@
                             <figure class="figure w-100">
                                 <div class="bg-dark text-light p-3 rounded shadow-sm text-start">
                                     <pre class="m-0"><code class="language-cpp">
-                                    void GameEngine::Step()
-                                    {
-                                        static Uint32 lastTime = SDL_GetTicks();
-                                        static float timeAccumulator = 0.0f;
-                                        const float TIME_STEP = 16.667f; // Fixed 60Hz update step
-
-                                        Uint32 currentTime = SDL_GetTicks();
-                                        float frameTime = (float)(currentTime - lastTime);
-                                        lastTime = currentTime;
-
-                                        // Spiral of Death preventer (Capped at 100ms)
-                                        if (frameTime > 100.0f) {
-                                            frameTime = 100.0f;
+                                        int ASwarmManager::GetClosestEnemyIndex(const FVector& Location)
+                                        {
+                                            TRACE_CPUPROFILER_EVENT_SCOPE(Swarm_GetClosestEnemyIndex);
+                                            int closestEnemyIndex = CheckClosestGrid(Location);
+                                            if (closestEnemyIndex != -1) { return closestEnemyIndex; }
+                                            int minDistance = INT_MAX;
+                                            for (int i = 0; i < _aliveEnemiesCount; i++)
+                                            {
+                                                int distance = FVector::DistSquared(_EnemyPosition[i], Location);
+                                                if (distance < minDistance)
+                                                {
+                                                    minDistance = distance;
+                                                    closestEnemyIndex = i;
+                                                }
+                                            }
+                                            return closestEnemyIndex;
                                         }
 
-                                        timeAccumulator += frameTime;
-                                        Input();
-
-                                        // Fixed timestep physics loop
-                                        while (timeAccumulator >= TIME_STEP) {
-                                            Update();
-                                            totalTime += TIME_STEP;
-                                            timeAccumulator -= TIME_STEP;
+                                        int ASwarmManager::CheckClosestGrid(const FVector& Location)
+                                        {
+                                            int index = CalculateHitZone(Location);
+                                            if (spatialGrid[index].Num() == 0) { return -1; }
+                                            int closestEnemyIndex = -1;
+                                            int minDistance = INT_MAX;
+                                            for (int i = -1; i <= 1; i++)
+                                            {
+                                                for (int j = -1; j <= 1; j++)
+                                                {
+                                                    int pos = (index + i) + (j * hitZoneDepth);
+                                                    if (pos < 0 || pos >= spatialGrid.Num()) { continue; }	
+                                                    for (int k = 0; k < spatialGrid[pos].Num(); k++)
+                                                    {
+                                                        int enemyIndex = spatialGrid[pos][k];
+                                                        int distance = FVector::DistSquared(_EnemyPosition[enemyIndex], Location);
+                                                        if (distance < minDistance)
+                                                        {
+                                                            minDistance = distance;
+                                                            closestEnemyIndex = enemyIndex;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            return closestEnemyIndex;
                                         }
-
-                                        Render();
-
-                                    #ifndef __EMSCRIPTEN__
-                                        // Native Desktop frame-limiting delay
-                                        if (TIME_STEP - aTimer.getTicks() >= 0) {
-                                            SDL_Delay(TIME_STEP - aTimer.getTicks());
-                                        }
-                                        aTimer.resetTicksTimer();
-                                    #endif
-                                    }
-                                    
-                                    //inside the main.cpp (SirRad.cpp)
-                                    #ifdef __EMSCRIPTEN__
-                                    #include <emscripten.h>
-
-                                    GameEngine* globalGame = nullptr;
-
-                                    void MainLoop()
-                                    {
-                                        if (globalGame) {
-                                            globalGame->Step();
-                                        }
-                                    }
-                                    #endif
-
-                                    //inside the main to start the emscripten loop or basic loop, I have a splash screen
-                                    #ifdef __EMSCRIPTEN__
-                                        globalGame = new GameEngine(window);
-                                        emscripten_set_main_loop(MainLoop, 60, 1);
-                                    #else
-                                        GameEngine theGame(window);
-                                        ///game of life splash screen not included in emscripten version
-                                        theGame.Splash();
-                                        theGame.GameLoop();
-                                        SDL_Quit();
-                                    #endif
                                     </code></pre>
                                 </div>
                                 <figcaption class="figure-caption text-center mt-2">
-                                    <strong>Cross-Platform Deterministic Game Loop:</strong> Developed a fixed-timestep accumulator (16.667ms) to decouple rendering from the core physics simulation, ensuring stable, deterministic behavior across varying hardware. Implemented C++ preprocessor directives to handle diverging core-loop logic between Native Desktop execution and Emscripten (WebAssembly) cross-compilation.
+                                    <strong>O(1) Spatial Hashing & SoA Lookup:</strong> The weapon targeting pipeline bypasses standard collision physics entirely. By querying a 3x3 grid of discrete memory buckets, the engine isolates valid targets and uses lightweight integer IDs to index directly into the <code>_EnemyPosition</code> flat array. This localized memory access, combined with squared-distance math, removes L1 cache misses and trigonometry.
+                            </figure>
+                        </div>
+
+                        <!-- Embedded Video -->
+                        <div class="mb-4">
+                            <video autoplay loop muted playsinline controls class="w-100 rounded shadow-sm border">
+                                <source src="../assets/DOD Unreal.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <figure class="figure w-100">
+                                <div class="bg-dark text-light p-3 rounded shadow-sm text-start">
+                                    <pre class="m-0"><code class="language-cpp">
+                                        void ASwarmManager::CleanupTickFrame()
+                                        {
+                                            FVector* playerPos = CombatRadio->GetPlayerPosition();
+                                            const float AttackRangeSqrt = 10000.0f;
+                                            for (int i = 0; i < _aliveEnemiesCount; i++)
+                                            {
+                                                bool _healthZero = _health[i] <= 0;
+                                                bool _inAttackRange = FVector::DistSquared(_EnemyPosition[i], *playerPos) < AttackRangeSqrt;
+                                                bool isAttacking = !_healthZero && _inAttackRange;
+
+                                                _cleanupFlags[i] = _healthZero + (isAttacking * 2);
+                                            }
+                                            for (int i = _aliveEnemiesCount - 1; i >= 0; i--)
+                                            {
+                                                if (_cleanupFlags[i] == 1)
+                                                {
+                                                    KillEnemy(i);
+                                                }
+                                                else if (_cleanupFlags[i] == 2)
+                                                {
+                                                    CombatRadio->OnPlayerHit.Broadcast(_damage[i]);
+                                                    KillEnemy(i);
+                                                }
+                                            }
+                                        }
+                                    </code></pre>
+                                </div>
+                                <figcaption class="figure-caption text-center mt-2">
+                                    <strong>Branchless State Evaluation & Two-Pass Cleanup:</strong> By using a Structure of Arrays (SoA) memory layout, the cleanup loop evaluates enemy conditions in a contiguous and branchless first pass. State outcomes are packed into a <code>_cleanupFlags</code> array. A secondary reverse-iteration pass executes the heavier callbacks and removal logic, this two part system allows the mathematical calculations using SIMD to optimise performance.
                                 </figcaption>
                             </figure>
+                        </div>
+
+                        <div class="mb-4">
+                            <video autoplay loop muted playsinline controls class="w-100 rounded shadow-sm border">
+                                <source src="../assets/DOD Optimisation.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
 
                     </div>
                 </div>
                 
-            </div>
-        </section>
-
-        <section class="game-section py-5 text-center bg-dark text-white">
-            <h2 class="mb-4">Play the Game</h2>
-            <div class="game-wrapper mx-auto">
-                <iframe 
-                    src="glbuilds/sirRadGl/index.html" 
-                    title="C++ Custom Game Engine"
-                    allow="fullscreen; gamepad; autoplay" 
-                    allowfullscreen
-                    scrolling="no"
-                    loading="lazy">
-                </iframe>
             </div>
         </section>
 
